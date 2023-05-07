@@ -2,7 +2,10 @@
 # server.port
 server: 
   port: 9091
-  
+  servlet: 
+    encoding:
+      charset: UTF-8
+      force: true
 # datasource설정하기
 # spring.datasource.driver-class-name
 spring:
@@ -24,7 +27,7 @@ spring:
     generate-ddl: false
     show-sql: true
     hibernate:
-      ddl-auto: none 
+      ddl-auto: update 
       
 # view화면 jsp로 활용하기
   mvc: 
@@ -36,7 +39,7 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-  
+
     
   
 # mybatis설정
@@ -60,7 +63,7 @@ logging:
     name: logs/springboot.log     
   level:
     root: info
-    '[com.bs.springboot]': warn
+    '[com.bs.springboot]': info
       
       
       

@@ -1,7 +1,13 @@
 package com.bs.springboot.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bs.springboot.model.entity.JpaBoard;
 import com.bs.springboot.model.entity.JpaMember;
 import com.bs.springboot.model.service.JpaService;
 
@@ -39,7 +46,8 @@ public class JpaController {
 	}
 	
 	@PostMapping("/member")
-	public JpaMember insertMember(JpaMember member) {
+	public JpaMember insertMember(HttpServletRequest request,JpaMember member) {
+		System.out.println(member);
 		member.setPassword(pwEncoder.encode(member.getPassword()));
 		return service.insertMember(member);
 	}
@@ -49,9 +57,33 @@ public class JpaController {
 		return service.selectMemberByName(name);
 	}
 	
+	@GetMapping("/member/page")
+	public Page<JpaMember> selectMemberPage(){
+		return service.selectMemberPage();
+	}
 	
-	
-	
+	@GetMapping("/board")
+	public ResponseEntity<List<JpaBoard>> selectBoard(){
+		List<JpaBoard> boards=service.selectBoardAll();
+		ResponseEntity<List<JpaBoard>> response
+			=new ResponseEntity<>(boards,HttpStatus.OK);
+		return response;
+	}
+	@GetMapping("/board/content")
+	public ResponseEntity<List<JpaBoard>> selectBoarByContent(String content){
+		List<JpaBoard> boards=service.selectBoardByContent(content);
+		ResponseEntity<List<JpaBoard>> response
+			=new ResponseEntity<>(boards,HttpStatus.OK);
+		return response;
+	}
+	@PostMapping("/board")
+	public ResponseEntity<Boolean> insertBoard(JpaBoard board,String boardWriter){
+		board.setBoardDate(new Date());
+		JpaBoard result=service.insertBoard(board,boardWriter);
+		ResponseEntity<Boolean> response
+			=new ResponseEntity<>((result==null?false:true),HttpStatus.OK);
+		return response;
+	}
 }
 
 

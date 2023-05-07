@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -80,6 +80,27 @@
 		}
 	</script>	
 	
+	<h2>채팅서버연결</h2>
+	<button onclick="openChatting()">채팅하기</button>
+	<script>
+		let socket;
+		const openChatting=()=>{
+			socket=new WebSocket("ws://localhost:9091/chatting");
+			socket.onopen=(data)=>{
+				console.log(data);
+			}
+		}
+	</script>
+	
+	<h2>게시글조회하기</h2>
+	<h3><a href="${pageContext.request.contextPath }/jpa/board">전체 게시글조회</a></h3>
+	
+	<form action="${pageContext.request.contextPath}/jpa/board" method="post">
+		제목 <input type="text" name="boardTitle"><br>
+		내용 <input type="text" name="boardContent"><br>
+		작성자 <input type="text" name="boardWriter" value="admin" readonly><br>
+		<input type="submit" value="저장"/>	
+	</form>	
 	
 	
 	

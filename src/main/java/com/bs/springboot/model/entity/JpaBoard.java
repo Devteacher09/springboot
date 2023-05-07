@@ -45,6 +45,7 @@ public class JpaBoard {
 	private JpaMember writer;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(insertable = false)
 	private Date boardDate;
 }
 
