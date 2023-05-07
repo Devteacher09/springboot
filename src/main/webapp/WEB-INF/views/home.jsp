@@ -20,6 +20,39 @@
 	</form>
 	
 	
+	<h2>
+		<a href="${pageContext.request.contextPath }/jpa/member">전체회원가져오기</a>
+	</h2>
+	<h2>
+		<select id="selectId">
+		</select>
+		<button	onclick="searchId();">검색하기</button>
+	</h2>
+	<script>
+		const searchId=()=>{
+			const id=document.getElementById("selectId").value;
+			const url="${pageContext.request.contextPath}/jpa/member/";
+			location.assign(url+id);
+		}
+		
+		//비동기식으로 요청을 보내는것 javascript가 제공하는 함수
+		fetch("${pageContext.request.contextPath}/jpa/member/")
+		.then(response=>response.json())
+		.then(data=>{
+			const $selectContainer=document.getElementById("selectId");
+			console.log(data);
+			data.forEach(e=>{
+				const $option=document.createElement("option");
+				$option.value=e.userId;
+				$option.innerText=e.userId;
+				$selectContainer.appendChild($option);
+			});
+		});
+	</script>
+	
+	
+	
+	
 	
 	
 	

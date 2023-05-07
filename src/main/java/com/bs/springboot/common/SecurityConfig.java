@@ -41,7 +41,6 @@ public class SecurityConfig {
 			.logout()
 				.logoutUrl("/logout.do")
 			.and()
-			//인증처리(로그인처리설정)
 			.authenticationProvider(provider)
 			.build();
 	}
