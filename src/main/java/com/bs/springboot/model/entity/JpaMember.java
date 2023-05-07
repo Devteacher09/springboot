@@ -34,6 +34,7 @@ public class JpaMember {
 	@Column(name="USERNAME")
 	private String userName;
 	private String gender;
+	private String phone;
 	private int age;
 	private String email;
 	private String address;

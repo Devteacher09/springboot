@@ -9,6 +9,8 @@ public interface JpaService {
 
 	List<JpaMember> selectMemberAll();
 	JpaMember selectMemberById(String id);
+	JpaMember insertMember(JpaMember m);
+	List<JpaMember> selectMemberByName(String name);
 	
 	List<JpaBoard> selectBoardAll();
 	JpaBoard selectBoard(Long id);

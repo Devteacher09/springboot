@@ -2,9 +2,10 @@ package com.bs.springboot.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class JpaController {
 //	@DeleteMapping -> delete방식으로 요청한 내용을 처리하는 메소드 -> 삭제
 	
 	private JpaService service;
-	
+	private BCryptPasswordEncoder pwEncoder=new BCryptPasswordEncoder();
 	public JpaController(JpaService service) {
 		this.service=service;
 	}
@@ -37,6 +38,16 @@ public class JpaController {
 		return service.selectMemberById(id);
 	}
 	
+	@PostMapping("/member")
+	public JpaMember insertMember(JpaMember member) {
+		member.setPassword(pwEncoder.encode(member.getPassword()));
+		return service.insertMember(member);
+	}
+	
+	@GetMapping("/member/name/{name}")
+	public List<JpaMember> selectMemberByName(@PathVariable String name){
+		return service.selectMemberByName(name);
+	}
 	
 	
 	

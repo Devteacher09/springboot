@@ -28,6 +28,19 @@ public class JpaServiceImpl implements JpaService {
 		// TODO Auto-generated method stub
 		return dao.findById(id).orElse(JpaMember.builder().build());
 	}
+	
+	
+	@Override
+	public List<JpaMember> selectMemberByName(String name) {
+		// TODO Auto-generated method stub
+		return dao.findByUserNameLike("%"+name+"%");
+	}
+
+	@Override
+	public JpaMember insertMember(JpaMember m) {
+		// TODO Auto-generated method stub
+		return dao.save(m);
+	}
 
 	@Override
 	public List<JpaBoard> selectBoardAll() {

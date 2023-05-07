@@ -50,6 +50,38 @@
 		});
 	</script>
 	
+	<h2>회원저장하기</h2>
+	<div id="enrollMember">
+		<form action="${pageContext.request.contextPath}/jpa/member" method="post">
+			아이디 <input type="text" name="userId"><br>
+			패스워드 <input type="password" name="password"><br>
+			이름 <input type="text" name="userName"><br>
+			성별
+			<label><input type="radio" name="gender" value="M">남</label>
+			<label><input type="radio" name="gender" value="F">여</label>
+			<br>
+			나이<input type="number" size="3" name="age"><br/>
+			전화번호<input type="text" name="phone"><br/>
+			이메일<input type="email" name="email"><br/>
+			주소<input type="text" name="address"><br/>
+			취미<br>
+			<label><input type="checkbox" name="hobby" value="운동">운동</label>
+			<label><input type="checkbox" name="hobby" value="등산">등산</label>
+			<label><input type="checkbox" name="hobby" value="독서">독서</label>
+			<input type="submit" value="회원가입">
+		</form>
+	</div>
+	<h2>이름으로 조회하기</h2>
+	<input id="searchName" type="text" name="name"><button onclick="searchName();">검색하기</button>
+	<script>
+		const searchName=()=>{
+			const name=document.querySelector("#searchName").value;
+			location.assign("${pageContext.request.contextPath}/jpa/member/name/"+name);
+		}
+	</script>	
+	
+	
+	
 	
 	
 	
